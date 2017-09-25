@@ -5,7 +5,11 @@
  */
 package projeto.de.criptografia;
 
+import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 /**
  *
@@ -18,7 +22,7 @@ public class ProjetoDeCriptografiaAlgoritmoDeCessar {
         String newMessage = "";
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         
-        // Regex all numeric and special character in  string and converts to upper case
+        // Regex all numeric and special character in string and converts to upper case
         for(char letter: msg.toUpperCase().replaceAll("[^a-zA-Z]","").toCharArray()){
             index = new String(alphabet).indexOf(letter);
             newMessage += Character.toString(alphabet.charAt((index + key)%26));   
@@ -32,7 +36,7 @@ public class ProjetoDeCriptografiaAlgoritmoDeCessar {
         String newMessage = "";
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         
-        // Regex all numeric and special character in  string and converts to upper case
+        // Regex all numeric and special character in string and converts to upper case
         for(char letter: msg.toUpperCase().replaceAll("[^a-zA-Z]","").toCharArray()){
             index = new String(alphabet).indexOf(letter);
             if((index - key) < 0){
@@ -56,13 +60,20 @@ public class ProjetoDeCriptografiaAlgoritmoDeCessar {
         // Get heigth from image.
         height = picture.getHeight();
         
-        // Get picture from image.
+        // Get width from image.
         width = picture.getWidth();
         
         for (i = 0; i < height; i++) {
             for (j = 0; j< width; j++) {
-                rgb = picture.getRGB(i, j);
+                rgb = picture.getRGB(j, i);
                 
+                // Catch the color by rgb.
+                Color color = new Color(rgb);
+                
+                // Get the colors red, green and blue than transform they in binary.
+                int blue = color.getBlue();
+                int red = color.getRed();
+                int green = color.getGreen();
             } 
         }
         
@@ -71,8 +82,15 @@ public class ProjetoDeCriptografiaAlgoritmoDeCessar {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO code application logic here
+        ProjetoDeCriptografiaAlgoritmoDeCessar c = new ProjetoDeCriptografiaAlgoritmoDeCessar();
+        
+        BufferedImage img = ImageIO.read(new File("/home/angelo/NetBeansProjects/Projeto de criptografia/src/images/linux.jpg"));
+        
+        String message = c.encodeCesar("batatinha quando nasce", 25);
+        
+        c.steganography(message, img);
     }
     
 }
