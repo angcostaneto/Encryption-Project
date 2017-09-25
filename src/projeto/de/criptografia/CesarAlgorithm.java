@@ -15,7 +15,7 @@ import javax.imageio.ImageIO;
  *
  * @author angelo
  */
-public class ProjetoDeCriptografiaAlgoritmoDeCessar {
+public class CesarAlgorithm {
     
     public static String encodeCesar(String msg, int key){        
         int index;
@@ -51,46 +51,19 @@ public class ProjetoDeCriptografiaAlgoritmoDeCessar {
         return newMessage;
     }
     
-    public void steganography(String msg, BufferedImage picture) {
-        int height, width, i, j, rgb;
-        
-        // Transform a string into byte.
-        byte[] msg_byte = msg.getBytes();
-        
-        // Get heigth from image.
-        height = picture.getHeight();
-        
-        // Get width from image.
-        width = picture.getWidth();
-        
-        for (i = 0; i < height; i++) {
-            for (j = 0; j< width; j++) {
-                rgb = picture.getRGB(j, i);
-                
-                // Catch the color by rgb.
-                Color color = new Color(rgb);
-                
-                // Get the colors red, green and blue than transform they in binary.
-                int blue = color.getBlue();
-                int red = color.getRed();
-                int green = color.getGreen();
-            } 
-        }
-        
-    }
-    
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
-        ProjetoDeCriptografiaAlgoritmoDeCessar c = new ProjetoDeCriptografiaAlgoritmoDeCessar();
+        CesarAlgorithm c = new CesarAlgorithm();
+        Steganography s = new Steganography();
         
         BufferedImage img = ImageIO.read(new File("/home/angelo/NetBeansProjects/Projeto de criptografia/src/images/linux.jpg"));
         
         String message = c.encodeCesar("batatinha quando nasce", 25);
         
-        c.steganography(message, img);
+        s.encrypt(message, img);
     }
     
 }
