@@ -7,6 +7,8 @@ package projeto.de.criptografia;
 
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import javax.imageio.ImageIO;
 
 /**
@@ -15,7 +17,7 @@ import javax.imageio.ImageIO;
  */
 public class Steganography {
     
-    public void encrypt(String msg, BufferedImage picture) {
+    public void encrypt(String msg, BufferedImage picture) throws IOException {
         int height, width, i, j, length;
         
         // Transform a string into byte.
@@ -81,7 +83,7 @@ public class Steganography {
                 picture.setRGB(j, i, novoPixel.getRGB());
                 
                 // ERRO
-                ImageIO.write(picture, "jpg", "/home/angelo/NetBeansProjects/Projeto de criptografia/src/images/novaImagem.jpg");
+                ImageIO.write(picture, "jpg", new File("/home/angelo/NetBeansProjects/Projeto de criptografia/src/images/novaImagem.jpg"));
                 
             }
         }
