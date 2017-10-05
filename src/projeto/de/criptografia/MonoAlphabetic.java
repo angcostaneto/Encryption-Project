@@ -8,9 +8,9 @@ package projeto.de.criptografia;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 import javax.imageio.ImageIO;
 
 /**
@@ -32,6 +32,22 @@ public class MonoAlphabetic {
         return newMessage;
     }
     
+    public String generateKey() {
+        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        
+        String key = "";
+        
+        List<String> letters = Arrays.asList(alphabet.split(""));  
+        
+        Collections.shuffle(letters);
+        
+        for(String letter: letters) {
+            key += letter;
+        }
+        
+        return key;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -40,17 +56,11 @@ public class MonoAlphabetic {
         MonoAlphabetic c = new MonoAlphabetic();
         Steganography s = new Steganography();
         
-        String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        String newKey = c.generateKey();
         
-        char[] characteres = alphabet.toCharArray();
-        Collections.shuffle(Arrays.asList(characteres));
-        
-        alphabet = new String(characteres);
-        
-
         BufferedImage img = ImageIO.read(new File("/home/angelo/NetBeansProjects/Projeto de criptografia/src/images/linux.jpg"));
         
-        String message = c.encodeMonoAlphabetic("batatinha quando nasce", alphabet);
+        String message = c.encodeMonoAlphabetic("batatinha quando nasce", newKey);
         
         s.encrypt(message, img);
     }
